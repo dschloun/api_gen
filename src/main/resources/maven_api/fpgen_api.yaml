@@ -1,0 +1,73 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: 'FpGen api'
+  description: 'API for fake profile dataset generator project'
+
+tags:
+  - name: Message
+  - name: Conversation
+paths:
+  /v1/messages:
+    post:
+      tags:
+        - Message
+      summary: "Generate a single message"
+      description: "Create a single message"
+      operationId: createSingleMessage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleMessageCreation'
+      responses:
+        201:
+          description: 'Single message successfully registered'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+# components
+components:
+  parameters:
+    singleMessageId:
+      name: singleMessageId
+      in: path
+      required: true
+      schema:
+        $ref: 'common.yaml#/components/schemas/UUID'
+
+  schemas:
+    # bodies
+    SingleMessageCreation:
+      type: object
+      required:
+        - messageType
+        - messageTopic
+      properties:
+        messageType:
+          $ref: '#/components/schemas/MessageType'
+        messageTopic:
+          $ref: '#/components/schemas/MessageTopic'
+
+    # enums
+    MessageType:
+      type: string
+      enum:
+        - SOCIAL_ENGINEERING
+        - TROLLING
+        - GENUINE
+
+    MessageTopic:
+      type: string
+      enum:
+        - WEATHER
+        - SPORT
+        - PASSWORD
+        - BANK_ACCOUNT
