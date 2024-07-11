@@ -5,8 +5,9 @@ pour générer l'api typescript.
 
 essai depuis un tuto
 ********************
-2')  npx openapi-generator-cli generate -i fpgen_api.yaml -g typescript-angular -o ./npm_api_out --additional-properties fileNaming=kebab-case,withInterfaces=t
-   rue --generate-alias-as-model
+2') 
+
+npx openapi-generator-cli generate -i fpgen-api.yaml -g typescript-angular -o ./npm_api_out --additional-properties fileNaming=kebab-case,withInterfaces=true --generate-alias-as-model
 
 //////////////////////////////////////////////////////
 

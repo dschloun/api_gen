@@ -6,7 +6,7 @@
 
     <groupId>be.unamur</groupId>
     <artifactId>fpgen</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -91,7 +91,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/maven_api/fpgen_api.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/maven_api/gen/fpgen-api.yaml</inputSpec>
                             <output>${project.basedir}src/main/java/be</output>
                             <generatorName>spring</generatorName>
                             <apiPackage>be.unamur.api</apiPackage>
