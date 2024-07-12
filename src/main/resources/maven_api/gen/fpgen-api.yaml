@@ -43,11 +43,7 @@ paths:
       description: "Get a instant instant message"
       operationId: getInstantMessageById
       parameters:
-        - name: instantMessageId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/parameters/instantMessageId'
+        - $ref: '#/components/parameters/instantMessageId'
       responses:
         200:
           description: 'Instant message successfully recovered'
@@ -98,11 +94,7 @@ paths:
       description: "Get a conversation by id"
       operationId: getInstantMessageById
       parameters:
-        - name: conversationId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/parameters/conversationId'
+        - $ref: '#/components/parameters/conversationId'
       responses:
         200:
           description: 'Conversation successfully recovered'
@@ -127,16 +119,8 @@ paths:
       description: "Get a conversation by id"
       operationId: getInstantMessageById
       parameters:
-        - name: conversationId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/parameters/conversationId'
-        - name: conversationInstantMessageId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/parameters/conversationInstantMessageId'
+        - $ref: '#/components/parameters/conversationId'
+        - $ref: '#/components/parameters/conversationInstantMessageId'
       responses:
         200:
           description: 'Conversation instant message successfully recovered'
