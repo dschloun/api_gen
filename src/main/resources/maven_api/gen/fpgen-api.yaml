@@ -92,7 +92,7 @@ paths:
         - Conversation
       summary: "Get a conversation by id"
       description: "Get a conversation by id"
-      operationId: getInstantMessageById
+      operationId: getConversationById
       parameters:
         - $ref: '#/components/parameters/conversationId'
       responses:
@@ -117,7 +117,7 @@ paths:
         - Conversation
       summary: "Get a conversation by id"
       description: "Get a conversation by id"
-      operationId: getInstantMessageById
+      operationId: getConversationInstantMessageById
       parameters:
         - $ref: '#/components/parameters/conversationId'
         - $ref: '#/components/parameters/conversationInstantMessageId'
