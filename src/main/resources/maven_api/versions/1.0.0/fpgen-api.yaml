@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: 1.0.0
+  version: 1.1.0
   title: 'FpGen api'
   description: 'API for fake profile dataset generator project'
 
@@ -12,18 +12,23 @@ paths:
     post:
       tags:
         - Message
-      summary: "Generate a single message"
-      description: "Create a single message"
+      summary: "Generate a single instant message"
+      description: "Create a single instant message"
       operationId: createSingleMessage
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SingleMessageCreation'
+              $ref: '#/components/schemas/SingleInstantMessageCreation'
+
       responses:
-        201:
-          description: 'Single message successfully registered'
+        200:
+          description: 'Single message successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleInstantMessage'
         400:
           $ref: 'common.yaml#/components/responses/400'
         403:
@@ -45,7 +50,7 @@ components:
 
   schemas:
     # bodies
-    SingleMessageCreation:
+    SingleInstantMessageCreation:
       type: object
       required:
         - messageType
@@ -55,6 +60,18 @@ components:
           $ref: '#/components/schemas/MessageType'
         messageTopic:
           $ref: '#/components/schemas/MessageTopic'
+
+    SingleInstantMessage:
+      type: object
+      properties:
+        id:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        messageType:
+          $ref: '#/components/schemas/MessageType'
+        messageTopic:
+          $ref: '#/components/schemas/MessageTopic'
+        content:
+          type: string
 
     # enums
     MessageType:
@@ -67,7 +84,24 @@ components:
     MessageTopic:
       type: string
       enum:
-        - WEATHER
+        - WORK
         - SPORT
-        - PASSWORD
-        - BANK_ACCOUNT
+        - POLITICS
+        - SCIENCE
+        - TECHNOLOGY
+        - ART
+        - MUSIC
+        - MOVIES
+        - GAMES
+        - LITERATURE
+        - PHILOSOPHY
+        - RELIGION
+        - HISTORY
+        - GEOGRAPHY
+        - ECONOMY
+        - SOCIETY
+        - HEALTH
+        - EDUCATION
+        - ENVIRONMENT
+        - ROMANCE
+        - OTHER

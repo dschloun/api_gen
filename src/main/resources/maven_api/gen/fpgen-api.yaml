@@ -1,34 +1,149 @@
 openapi: "3.0.0"
 info:
-  version: 1.1.0
+  version: 1.0.0
   title: 'FpGen api'
   description: 'API for fake profile dataset generator project'
 
 tags:
-  - name: Message
+  - name: InstantMessage
   - name: Conversation
+
 paths:
-  /v1/messages:
+  /v1/instantMessages:
     post:
       tags:
-        - Message
-      summary: "Generate a single instant message"
-      description: "Create a single instant message"
-      operationId: createSingleMessage
+        - InstantMessage
+      summary: "Generate instant messages"
+      description: "Generate a instant messages"
+      operationId: createMessage
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SingleInstantMessageCreation'
+              $ref: '#/components/schemas/InstantMessageBatchCreation'
 
       responses:
+        201:
+          description: 'Instant messages generation request successfully sent'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/instantMessages/{instantMessageId}:
+    get:
+      tags:
+        - InstantMessage
+      summary: "Get a instant instant message"
+      description: "Get a instant instant message"
+      operationId: getInstantMessageById
+      parameters:
+        - name: instantMessageId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/parameters/instantMessageId'
+      responses:
         200:
-          description: 'Single message successfully created'
+          description: 'Instant message successfully recovered'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SingleInstantMessage'
+                $ref: '#/components/schemas/InstantMessage'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/conversations:
+    post:
+      tags:
+        - Conversation
+      summary: "Generate conversations"
+      description: "Generate conversations"
+      operationId: generateConversations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversationBatchCreation'
+
+      responses:
+        201:
+          description: 'Conversations generation request successfully sent'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/conversations/{conversationId}:
+    get:
+      tags:
+        - Conversation
+      summary: "Get a conversation by id"
+      description: "Get a conversation by id"
+      operationId: getInstantMessageById
+      parameters:
+        - name: conversationId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/parameters/conversationId'
+      responses:
+        200:
+          description: 'Conversation successfully recovered'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/conversations/{conversationId}/{conversationInstantMessageId}:
+    get:
+      tags:
+        - Conversation
+      summary: "Get a conversation by id"
+      description: "Get a conversation by id"
+      operationId: getInstantMessageById
+      parameters:
+        - name: conversationId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/parameters/conversationId'
+        - name: conversationInstantMessageId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/parameters/conversationInstantMessageId'
+      responses:
+        200:
+          description: 'Conversation instant message successfully recovered'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationInstantMessage'
         400:
           $ref: 'common.yaml#/components/responses/400'
         403:
@@ -41,8 +156,22 @@ paths:
 # components
 components:
   parameters:
-    singleMessageId:
-      name: singleMessageId
+    instantMessageId:
+      name: instantMessageId
+      in: path
+      required: true
+      schema:
+        $ref: 'common.yaml#/components/schemas/UUID'
+
+    conversationId:
+      name: conversationId
+      in: path
+      required: true
+      schema:
+        $ref: 'common.yaml#/components/schemas/UUID'
+
+    conversationInstantMessageId:
+      name: conversationInstantMessageId
       in: path
       required: true
       schema:
@@ -50,7 +179,8 @@ components:
 
   schemas:
     # bodies
-    SingleInstantMessageCreation:
+    # request bodies
+    InstantMessageCreation:
       type: object
       required:
         - messageType
@@ -61,7 +191,35 @@ components:
         messageTopic:
           $ref: '#/components/schemas/MessageTopic'
 
-    SingleInstantMessage:
+    InstantMessageBatchCreation:
+        type: object
+        properties:
+          instantMessageCreation:
+            $ref: '#/components/schemas/InstantMessageCreation'
+          quantity:
+            type: integer
+
+    ConversationCreation:
+      type: object
+      required:
+        - messageType
+        - messageTopic
+      properties:
+        messageType:
+          $ref: '#/components/schemas/MessageType'
+        messageTopic:
+          $ref: '#/components/schemas/MessageTopic'
+
+    ConversationBatchCreation:
+      type: object
+      properties:
+        conversationCreation:
+          $ref: '#/components/schemas/ConversationCreation'
+        quantity:
+          type: integer
+
+    # response bodies
+    InstantMessage:
       type: object
       properties:
         id:
@@ -72,6 +230,49 @@ components:
           $ref: '#/components/schemas/MessageTopic'
         content:
           type: string
+        generation:
+          $ref: '#/components/schemas/Generation'
+
+    ConversationInstantMessage:
+      type: object
+      properties:
+        id:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        content:
+          type: string
+        sender:
+          type: integer
+        receiver:
+          type: integer
+
+    Conversation:
+      type: object
+      properties:
+        id:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        generation:
+          $ref: '#/components/schemas/Generation'
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversationInstantMessage'
+
+    Generation:
+      type: object
+      properties:
+        id:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        generationType:
+          $ref: '#/components/schemas/GenerationType'
+        generationDate:
+          type: string
+          format: date-time
+        author:
+          type: string
+        details:
+          type: string
+        batch:
+          type: boolean
 
     # enums
     MessageType:
@@ -105,3 +306,10 @@ components:
         - ENVIRONMENT
         - ROMANCE
         - OTHER
+
+    GenerationType:
+      type: string
+      enum:
+        - INSTANT_MESSAGE
+        - CONVERSATION
+
