@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>be.unamur</groupId>
-    <artifactId>fpgen</artifactId>
-    <version>1.0.0</version>
+    <artifactId>fpgen-api</artifactId>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -101,6 +101,7 @@
                             </supportingFilesToGenerate>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
+                                <useTags>true</useTags>
                             </configOptions>
                         </configuration>
                     </execution>
