@@ -233,7 +233,7 @@ paths:
       description: "Get a author by id"
       operationId: getAuthorById
       parameters:
-        - $ref: '#/components/parameters/generationId'
+        - $ref: '#/components/parameters/authorId'
       responses:
         200:
           description: 'Author successfully recovered'
