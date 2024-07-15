@@ -1,14 +1,20 @@
 openapi: "3.0.0"
 info:
-  version: 1.1.0
+  version: 1.2.0
   title: 'FpGen api'
   description: 'API for fake profile dataset generator project'
 
 tags:
   - name: InstantMessage
   - name: Conversation
+  - name: Generation
+  - name: Dataset
+  - name: Author
+  - name: Statistic
 
 paths:
+
+#InstantMessage
   /v1/instantMessages:
     post:
       tags:
@@ -86,6 +92,7 @@ paths:
         500:
           $ref: 'common.yaml#/components/responses/500'
 
+#Conversation
   /v1/conversations/{conversationId}:
     get:
       tags:
@@ -117,7 +124,7 @@ paths:
         - Conversation
       summary: "Get a conversation by id"
       description: "Get a conversation by id"
-      operationId: getConversationInstantMessageById
+      operationId: getConversationInstantMessageListById
       parameters:
         - $ref: '#/components/parameters/conversationId'
         - $ref: '#/components/parameters/conversationInstantMessageId'
@@ -127,7 +134,240 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConversationInstantMessage'
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConversationInstantMessage'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  #Generation
+  /v1/generations/{generationId}:
+    get:
+      tags:
+        - Generation
+      summary: "Get a generation by id"
+      description: "Get a generation by id"
+      operationId: getGenerationById
+      parameters:
+        - $ref: '#/components/parameters/generationId'
+      responses:
+        200:
+          description: 'Generation successfully recovered'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Generation'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+#Authors
+  /v1/authors:
+    post:
+      tags:
+        - Author
+      summary: "Create author"
+      description: "Create author"
+      operationId: createAuthor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorCreation'
+      responses:
+        200:
+          description: 'Author successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+    get:
+      tags:
+        - Author
+      summary: "Get authors"
+      description: "Get authors"
+      responses:
+        200:
+          description: 'Authors successfully recovered'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/authors/{authorId}:
+    get:
+      tags:
+        - Author
+      summary: "Get a author by id"
+      description: "Get a author by id"
+      operationId: getAuthorById
+      parameters:
+        - $ref: '#/components/parameters/generationId'
+      responses:
+        200:
+          description: 'Author successfully recovered'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+#Dataset
+  /v1/datasets:
+    post:
+      tags:
+        - Dataset
+      summary: "Create dataset"
+      description: "Create dataset"
+      operationId: createDataset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetCreation'
+      responses:
+        200:
+          description: 'Dataset successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/datasets/{datasetId}:
+    get:
+      tags:
+        - Dataset
+      summary: "Get a dataset by id"
+      description: "Get a dataset by id"
+      operationId: getDatasetById
+      parameters:
+        - $ref: '#/components/parameters/datasetId'
+      responses:
+        200:
+          description: 'Dataset successfully recovered'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+    post:
+      tags:
+        - Dataset
+      summary: "Add generations to dataset"
+      description: "Add generations to dataset"
+      operationId: addGenerationListToDataset
+      parameters:
+        - $ref: '#/components/parameters/datasetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: 'common.yaml#/components/schemas/UUID'
+      responses:
+        201:
+          description: 'Generations successfully added to dataset'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+    put:
+      tags:
+        - Dataset
+      summary: "Remove generations from dataset"
+      description: "Remove generations from dataset"
+      operationId: removeGenerationFromDataset
+      parameters:
+        - $ref: '#/components/parameters/datasetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: 'common.yaml#/components/schemas/UUID'
+      responses:
+        204:
+          description: 'Generations successfully removed from dataset'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+    delete:
+      tags:
+        - Dataset
+      summary: "Delete dataset"
+      description: "Delete dataset"
+      operationId: deleteDataset
+      parameters:
+        - $ref: '#/components/parameters/datasetId'
+      responses:
+        204:
+          description: 'Dataset successfully deleted'
         400:
           $ref: 'common.yaml#/components/responses/400'
         403:
@@ -161,23 +401,37 @@ components:
       schema:
         $ref: 'common.yaml#/components/schemas/UUID'
 
+    generationId:
+      name: generationId
+      in: path
+      required: true
+      schema:
+        $ref: 'common.yaml#/components/schemas/UUID'
+
+    authorId:
+      name: authorId
+      in: path
+      required: true
+      schema:
+        $ref: 'common.yaml#/components/schemas/UUID'
+
+    datasetId:
+      name: datasetId
+      in: path
+      required: true
+      schema:
+        $ref: 'common.yaml#/components/schemas/UUID'
+
+    statisticId:
+      name: statisticId
+      in: path
+      required: true
+      schema:
+        $ref: 'common.yaml#/components/schemas/UUID'
+
   schemas:
     # bodies
     # request bodies
-    InstantMessageCreation:
-      type: object
-      required:
-        - messageType
-        - messageTopic
-        - quantity
-      properties:
-        messageType:
-          $ref: '#/components/schemas/MessageType'
-        messageTopic:
-          $ref: '#/components/schemas/MessageTopic'
-        quantity:
-          type: integer
-
     InstantMessageBatchCreation:
         type: object
         required:
@@ -186,22 +440,7 @@ components:
           instantMessageCreationList:
             type: array
             items:
-              $ref: '#/components/schemas/InstantMessageCreation'
-
-
-    ConversationCreation:
-      type: object
-      required:
-        - messageType
-        - messageTopic
-        - quantity
-      properties:
-        messageType:
-          $ref: '#/components/schemas/MessageType'
-        messageTopic:
-          $ref: '#/components/schemas/MessageTopic'
-        quantity:
-          type: integer
+              $ref: '#/components/schemas/GenerationCreation'
 
     ConversationBatchCreation:
       type: object
@@ -211,7 +450,7 @@ components:
         conversationCreationList:
           type: array
           items:
-            $ref: '#/components/schemas/ConversationCreation'
+            $ref: '#/components/schemas/GenerationCreation'
 
     # response bodies
     InstantMessage:
@@ -252,22 +491,131 @@ components:
           items:
             $ref: '#/components/schemas/ConversationInstantMessage'
 
+    AuthorCreation:
+      type: object
+      required:
+        - lastName
+        - firstName
+        - trigram
+        - organization
+        - function
+        - email
+        - phoneNumber
+      properties:
+        lastName:
+          type: string
+        firstName:
+          type: string
+        trigram:
+          type: string
+        organization:
+          type: string
+        function:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+
+    Author:
+      type: object
+      properties:
+        id:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        lastName:
+          type: string
+        firstName:
+          type: string
+        trigram:
+          type: string
+        organization:
+          type: string
+        function:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+
+    GenerationCreation:
+      type: object
+      required:
+        - authorId
+        - topic
+        - type
+        - quantity
+      properties:
+        authorId:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        topic:
+          $ref: '#/components/schemas/MessageTopic'
+        type:
+          $ref: '#/components/schemas/MessageType'
+        quantity:
+          type: integer
+        systemPrompt:
+          type: string
+        userPrompt:
+          type: string
+
     Generation:
       type: object
       properties:
         id:
           $ref: 'common.yaml#/components/schemas/UUID'
+        creationDate:
+          $ref: 'common.yaml#/components/schemas/DateTime'
+        modificationDate:
+          $ref: 'common.yaml#/components/schemas/DateTime'
+        generationDate:
+          $ref: 'common.yaml#/components/schemas/DateTime'
         generationType:
           $ref: '#/components/schemas/GenerationType'
-        generationDate:
-          type: string
-          format: date-time
         author:
           type: string
         details:
           type: string
         batch:
           type: boolean
+        datasetId:
+          $ref: 'common.yaml#/components/schemas/UUID'
+
+    DatasetCreation:
+      type: object
+      required:
+        - generation
+        - function
+        - type
+      properties:
+        id:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        generation:
+          $ref: '#/components/schemas/GenerationCreation'
+        function:
+          $ref: '#/components/schemas/DatasetFunctionEnum'
+        type:
+          $ref: '#/components/schemas/MessageType'
+
+    Dataset:
+      type: object
+      required:
+        - generation
+        - function
+        - type
+      properties:
+        id:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        creationDate:
+          $ref: 'common.yaml#/components/schemas/DateTime'
+        modificationDate:
+          $ref: 'common.yaml#/components/schemas/DateTime'
+        generation:
+          $ref: '#/components/schemas/Generation'
+        function:
+          $ref: '#/components/schemas/DatasetFunctionEnum'
+        type:
+          $ref: '#/components/schemas/MessageType'
+
 
     # enums
     MessageType:
@@ -307,4 +655,11 @@ components:
       enum:
         - INSTANT_MESSAGE
         - CONVERSATION
+
+    DatasetFunctionEnum:
+      type: string
+      enum:
+        - TRAINING
+        - TEST
+        - VALIDATION
 
