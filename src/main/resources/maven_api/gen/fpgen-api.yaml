@@ -821,6 +821,12 @@ components:
           $ref: '#/components/schemas/DatasetFunctionEnum'
         type:
           $ref: '#/components/schemas/DatasetType'
+        version:
+          type: string
+        description:
+          type: string
+        comment:
+          type: string
 
     Dataset:
       type: object
