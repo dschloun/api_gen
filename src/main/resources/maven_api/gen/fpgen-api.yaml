@@ -1,11 +1,12 @@
 openapi: "3.0.0"
 info:
-  version: 1.2.0
+  version: 1.3.0
   title: 'FpGen api'
   description: 'API for fake profile dataset generator project'
 
 tags:
   - name: InstantMessage
+  - name: ConversationMessage
   - name: Conversation
   - name: Generation
   - name: Dataset
@@ -57,6 +58,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InstantMessage'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/instantMessages/search:
+    post:
+      tags:
+        - InstantMessage
+      summary: "Search instant messages with pagination"
+      description: "Search instant messages with pagination"
+      operationId: searchInstantMessagesPaginate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PagedInstantMessageQuery'
+      responses:
+        200:
+          description: 'The requested page that matches the given query'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstantMessagesPage'
         400:
           $ref: 'common.yaml#/components/responses/400'
         403:
@@ -136,7 +165,63 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ConversationInstantMessage'
+                  $ref: '#/components/schemas/ConversationMessage'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/conversations/search:
+    post:
+      tags:
+        - Conversation
+      summary: "Search conversations with pagination"
+      description: "Search conversations with pagination"
+      operationId: searchConversationsPaginate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PagedConversationQuery'
+      responses:
+        200:
+          description: 'The requested page that matches the given query'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationsPage'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/conversationMessages/search:
+    post:
+      tags:
+        - ConversationMessage
+      summary: "Search conversation messages with pagination"
+      description: "Search conversation messages with pagination"
+      operationId: searchConversationMessagesPaginate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PagedConversationMessageQuery'
+      responses:
+        200:
+          description: 'The requested page that matches the given query'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationMessagesPage'
         400:
           $ref: 'common.yaml#/components/responses/400'
         403:
@@ -163,6 +248,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Generation'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/generations/search:
+    post:
+      tags:
+        - Generation
+      summary: "Search generations with pagination"
+      description: "Search generations with pagination"
+      operationId: searchGenerationsPaginate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PagedGenerationQuery'
+      responses:
+        200:
+          description: 'The requested page that matches the given query'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerationsPage'
         400:
           $ref: 'common.yaml#/components/responses/400'
         403:
@@ -241,6 +354,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Author'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/authors/search:
+    post:
+      tags:
+        - Authors
+      summary: "Search authors with pagination"
+      description: "Search authors with pagination"
+      operationId: searchAuthorsPaginate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PagedAuthorQuery'
+      responses:
+        200:
+          description: 'The requested page that matches the given query'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetsPage'
         400:
           $ref: 'common.yaml#/components/responses/400'
         403:
@@ -378,6 +519,34 @@ paths:
         500:
           $ref: 'common.yaml#/components/responses/500'
 
+  /v1/datasets/search:
+    post:
+      tags:
+        - Dataset
+      summary: "Search datasets with pagination"
+      description: "Search datasets with pagination"
+      operationId: searchDatasetsPaginate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PagedDatasetQuery'
+      responses:
+        200:
+          description: 'The requested page that matches the given query'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetsPage'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
 # components
 components:
   parameters:
@@ -452,8 +621,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GenerationCreation'
+        minInteractionNumber:
+            type: integer
+        maxInteractionNumber:
+            type: integer
 
     # response bodies
+    Interlocutor:
+      type: object
+      properties:
+        id:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        interlocutorType:
+          $ref: '#/components/schemas/InterlocutorType'
+
     InstantMessage:
       type: object
       properties:
@@ -465,20 +646,22 @@ components:
           $ref: '#/components/schemas/MessageTopic'
         content:
           type: string
-        generation:
-          $ref: '#/components/schemas/Generation'
+        generationId:
+          $ref: 'common.yaml#/components/schemas/UUID'
 
-    ConversationInstantMessage:
+    ConversationMessage:
       type: object
       properties:
         id:
           $ref: 'common.yaml#/components/schemas/UUID'
+        conversationId:
+          $ref: 'common.yaml#/components/schemas/UUID'
         content:
           type: string
         sender:
-          type: integer
+          $ref: '#/components/schemas/Interlocutor'
         receiver:
-          type: integer
+          $ref: '#/components/schemas/Interlocutor'
 
     Conversation:
       type: object
@@ -487,10 +670,40 @@ components:
           $ref: 'common.yaml#/components/schemas/UUID'
         generation:
           $ref: '#/components/schemas/Generation'
+        conversationType:
+          $ref: '#/components/schemas/GenerationType'
+        messageType:
+          $ref: '#/components/schemas/MessageType'
+        messageTopic:
+          $ref: '#/components/schemas/MessageTopic'
+        maxInteractionNumber:
+          type: integer
+        minInteractionNumber:
+          type: integer
         messages:
           type: array
           items:
-            $ref: '#/components/schemas/ConversationInstantMessage'
+            $ref: '#/components/schemas/ConversationMessage'
+
+    ConversationSummary:
+      type: object
+      properties:
+        id:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        generationId:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        generationBusinessId:
+          type: string
+        generationType:
+          $ref: '#/components/schemas/GenerationType'
+        messageType:
+          $ref: '#/components/schemas/MessageType'
+        messageTopic:
+          $ref: '#/components/schemas/MessageTopic'
+        maxInteractionNumber:
+          type: integer
+        minInteractionNumber:
+          type: integer
 
     AuthorCreation:
       type: object
@@ -564,6 +777,8 @@ components:
       properties:
         id:
           $ref: 'common.yaml#/components/schemas/UUID'
+        generationId:
+          type: string
         creationDate:
           $ref: 'common.yaml#/components/schemas/DateTime'
         modificationDate:
@@ -572,12 +787,20 @@ components:
           $ref: 'common.yaml#/components/schemas/DateTime'
         generationType:
           $ref: '#/components/schemas/GenerationType'
+        messageType:
+          $ref: '#/components/schemas/MessageType'
+        messageTopic:
+          $ref: '#/components/schemas/MessageTopic'
+        userPrompt:
+          type: string
+        systemPrompt:
+          type: string
         author:
           type: string
         details:
           type: string
-        batch:
-          type: boolean
+        quantity:
+          type: integer
         datasetId:
           $ref: 'common.yaml#/components/schemas/UUID'
 
@@ -595,7 +818,7 @@ components:
         function:
           $ref: '#/components/schemas/DatasetFunctionEnum'
         type:
-          $ref: '#/components/schemas/MessageType'
+          $ref: '#/components/schemas/DatasetType'
 
     Dataset:
       type: object
@@ -615,10 +838,22 @@ components:
         function:
           $ref: '#/components/schemas/DatasetFunctionEnum'
         type:
-          $ref: '#/components/schemas/MessageType'
-
+          $ref: '#/components/schemas/DatasetType'
 
     # enums
+    DatasetType:
+      type: string
+      enum:
+        - INSTANT_MESSAGE
+        - CONVERSATION
+
+    InterlocutorType:
+      type: string
+      enum:
+        - GENUINE
+        - TROLL
+        - SOCIAL_ENGINEER
+        -
     MessageType:
       type: string
       enum:
@@ -663,4 +898,342 @@ components:
         - TRAINING
         - TEST
         - VALIDATION
+
+    ###############################################################################################################
+    #For the pagination
+    ###############################################################################################################
+      #Generations
+    PagedGenerationQuery:
+      type: object
+      required:
+        - page
+        - query
+      properties:
+        page:
+          $ref: 'common.yaml#/components/schemas/QueryPage'
+        query:
+          $ref: '#/components/schemas/GenerationQuery'
+        sortField:
+          $ref: '#/components/schemas/GenerationSortEnum'
+        sortDirection:
+          $ref: 'common.yaml#/components/schemas/SortDirection'
+
+    GenerationQuery:
+      type: object
+      properties:
+        generationType:
+          $ref: '#/components/schemas/GenerationType'
+        messageType:
+          $ref: '#/components/schemas/MessageType'
+        messageTopic:
+          $ref: '#/components/schemas/MessageTopic'
+        userPrompt:
+          type: string
+        systemPrompt:
+          type: string
+        quantity:
+          type: integer
+        author:
+          type: string
+        startDate:
+          $ref: 'common.yaml#/components/schemas/Date'
+        endDate:
+          $ref: 'common.yaml#/components/schemas/Date'
+
+    GenerationSortEnum:
+      type: string
+      enum:
+        - GENERATION_TYPE
+        - MESSAGE_TYPE
+        - MESSAGE_TOPIC
+        - USER_PROMPT
+        - SYSTEM_PROMPT
+        - QUANTITY
+        - AUTHOR
+        - DATE
+
+    GenerationsPage:
+      type: object
+      required:
+        - pagination
+        - generations
+      properties:
+        pagination:
+          $ref: 'common.yaml#/components/schemas/Pagination'
+        generations:
+          type: array
+          minimum: 0
+          items:
+            $ref: '#/components/schemas/Generation'
+
+      #Conversations
+    PagedConversationQuery:
+      type: object
+      required:
+        - page
+        - query
+      properties:
+        page:
+          $ref: 'common.yaml#/components/schemas/QueryPage'
+        query:
+          $ref: '#/components/schemas/ConversationQuery'
+        sortField:
+          $ref: '#/components/schemas/ConversationSortEnum'
+        sortDirection:
+          $ref: 'common.yaml#/components/schemas/SortDirection'
+
+    ConversationQuery:
+      type: object
+      properties:
+        messageType:
+          $ref: '#/components/schemas/MessageType'
+        messageTopic:
+          $ref: '#/components/schemas/MessageTopic'
+        maxInteractionNumber:
+          type: integer
+        minInteractionNumber:
+          type: integer
+        startDate:
+          $ref: 'common.yaml#/components/schemas/Date'
+        endDate:
+          $ref: 'common.yaml#/components/schemas/Date'
+
+    ConversationSortEnum:
+      type: string
+      enum:
+        - MESSAGE_TYPE
+        - MESSAGE_TOPIC
+        - MAX_INTERACTION_NUMBER
+        - MIN_INTERACTION_NUMBER
+        - DATE
+
+    ConversationsPage:
+      type: object
+      required:
+        - pagination
+        - conversations
+      properties:
+        pagination:
+          $ref: 'common.yaml#/components/schemas/Pagination'
+        conversations:
+          type: array
+          minimum: 0
+          items:
+            $ref: '#/components/schemas/ConversationSummary'
+
+      #Conversation Messages
+    PagedConversationMessageQuery:
+      type: object
+      required:
+        - page
+        - query
+      properties:
+        page:
+          $ref: 'common.yaml#/components/schemas/QueryPage'
+        query:
+          $ref: '#/components/schemas/ConversationMessageQuery'
+        sortField:
+          $ref: '#/components/schemas/ConversationMessageSortEnum'
+        sortDirection:
+          $ref: 'common.yaml#/components/schemas/SortDirection'
+
+    ConversationMessageQuery:
+      type: object
+      properties:
+        messageType:
+          $ref: '#/components/schemas/MessageType'
+        messageTopic:
+          $ref: '#/components/schemas/MessageTopic'
+        content:
+          type: string
+        startDate:
+          $ref: 'common.yaml#/components/schemas/Date'
+        endDate:
+          $ref: 'common.yaml#/components/schemas/Date'
+
+    ConversationMessageSortEnum:
+      type: string
+      enum:
+        - MESSAGE_TYPE
+        - MESSAGE_TOPIC
+        - CONTENT
+        - DATE
+
+    ConversationMessagesPage:
+      type: object
+      required:
+        - pagination
+        - conversationMessages
+      properties:
+        pagination:
+          $ref: 'common.yaml#/components/schemas/Pagination'
+        conversationMessages:
+          type: array
+          minimum: 0
+          items:
+            $ref: '#/components/schemas/ConversationMessage'
+
+    #Instant Messages
+    PagedInstantMessageQuery:
+      type: object
+      required:
+        - page
+        - query
+      properties:
+        page:
+          $ref: 'common.yaml#/components/schemas/QueryPage'
+        query:
+          $ref: '#/components/schemas/InstantMessageQuery'
+        sortField:
+          $ref: '#/components/schemas/InstantMessageSortEnum'
+        sortDirection:
+          $ref: 'common.yaml#/components/schemas/SortDirection'
+
+    InstantMessageQuery:
+      type: object
+      properties:
+        messageType:
+          $ref: '#/components/schemas/MessageType'
+        messageTopic:
+          $ref: '#/components/schemas/MessageTopic'
+        content:
+          type: string
+        startDate:
+          $ref: 'common.yaml#/components/schemas/Date'
+        endDate:
+          $ref: 'common.yaml#/components/schemas/Date'
+
+    InstantMessageSortEnum:
+      type: string
+      enum:
+        - MESSAGE_TYPE
+        - MESSAGE_TOPIC
+        - CONTENT
+        - DATE
+
+    InstantMessagesPage:
+      type: object
+      required:
+        - pagination
+        - instantMessages
+      properties:
+        pagination:
+          $ref: 'common.yaml#/components/schemas/Pagination'
+        instantMessages:
+          type: array
+          minimum: 0
+          items:
+            $ref: '#/components/schemas/InstantMessage'
+
+    #Dataset
+    PagedDatasetQuery:
+      type: object
+      required:
+        - page
+        - query
+      properties:
+        page:
+          $ref: 'common.yaml#/components/schemas/QueryPage'
+        query:
+          $ref: '#/components/schemas/DatasetQuery'
+        sortField:
+          $ref: '#/components/schemas/DatasetSortEnum'
+        sortDirection:
+          $ref: 'common.yaml#/components/schemas/SortDirection'
+
+    DatasetQuery:
+      type: object
+      properties:
+        datasetType:
+          $ref: '#/components/schemas/DatasetType'
+        version:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        comment:
+          type: string
+        authorTrigram:
+          type: string
+        startDate:
+          $ref: 'common.yaml#/components/schemas/Date'
+        endDate:
+          $ref: 'common.yaml#/components/schemas/Date'
+
+    DatasetSortEnum:
+      type: string
+      enum:
+        - DATASET_TYPE
+        - NAME
+        - AUTHOR_TRIGRAM
+        - DATE
+
+    DatasetsPage:
+      type: object
+      required:
+        - pagination
+        - datasets
+      properties:
+        pagination:
+          $ref: 'common.yaml#/components/schemas/Pagination'
+        datasets:
+          type: array
+          minimum: 0
+          items:
+            $ref: '#/components/schemas/Dataset'
+
+    #Author
+    PagedAuthorQuery:
+      type: object
+      required:
+        - page
+        - query
+      properties:
+        page:
+          $ref: 'common.yaml#/components/schemas/QueryPage'
+        query:
+          $ref: '#/components/schemas/AuthorQuery'
+        sortField:
+          $ref: '#/components/schemas/AuthorSortEnum'
+        sortDirection:
+          $ref: 'common.yaml#/components/schemas/SortDirection'
+
+    AuthorQuery:
+      type: object
+      properties:
+        lastname:
+          type: string
+        firstname:
+          type: string
+        trigram:
+          type: string
+        description:
+          type: string
+        comment:
+          type: string
+        authorTrigram:
+          type: string
+
+    AuthorSortEnum:
+      type: string
+      enum:
+        - LASTNAME
+        - FIRSTNAME
+        - AUTHOR_TRIGRAM
+
+    AuthorsPage:
+      type: object
+      required:
+        - pagination
+        - authors
+      properties:
+        pagination:
+          $ref: 'common.yaml#/components/schemas/Pagination'
+        authors:
+          type: array
+          minimum: 0
+          items:
+            $ref: '#/components/schemas/Author'
+            
 

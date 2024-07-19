@@ -92,6 +92,12 @@ components:
           example: 4
           description: 'The total number of elements matching the given query'
 
+    SortDirection:
+      type: string
+      enum:
+        - ASC
+        - DESC
+
     ScrollPagination:
       description: "The end of the result happens when the result returned is less than requested"
       type: object
