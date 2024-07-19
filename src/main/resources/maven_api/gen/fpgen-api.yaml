@@ -824,12 +824,10 @@ components:
     DatasetCreation:
       type: object
       required:
-        - generation
+        - authorId
         - function
         - type
       properties:
-        id:
-          $ref: 'common.yaml#/components/schemas/UUID'
         authorId:
             $ref: 'common.yaml#/components/schemas/UUID'
         function:
