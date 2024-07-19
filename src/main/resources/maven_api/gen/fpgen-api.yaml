@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: 1.3.0
+  version: 1.3.1
   title: 'FpGen api'
   description: 'API for fake profile dataset generator project'
 
@@ -366,7 +366,7 @@ paths:
   /v1/authors/search:
     post:
       tags:
-        - Authors
+        - Author
       summary: "Search authors with pagination"
       description: "Search authors with pagination"
       operationId: searchAuthorsPaginate
@@ -631,7 +631,7 @@ components:
       type: object
       properties:
         id:
-          $ref: 'common.yaml#/components/schemas/UUID'
+          type: integer
         interlocutorType:
           $ref: '#/components/schemas/InterlocutorType'
 
@@ -648,6 +648,8 @@ components:
           type: string
         generationId:
           $ref: 'common.yaml#/components/schemas/UUID'
+        generationBusinessId:
+          type: string
 
     ConversationMessage:
       type: object
@@ -668,8 +670,8 @@ components:
       properties:
         id:
           $ref: 'common.yaml#/components/schemas/UUID'
-        generation:
-          $ref: '#/components/schemas/Generation'
+        generationId:
+          $ref: 'common.yaml#/components/schemas/UUID'
         conversationType:
           $ref: '#/components/schemas/GenerationType'
         messageType:
@@ -813,8 +815,8 @@ components:
       properties:
         id:
           $ref: 'common.yaml#/components/schemas/UUID'
-        generation:
-          $ref: '#/components/schemas/GenerationCreation'
+        authorId:
+            $ref: 'common.yaml#/components/schemas/UUID'
         function:
           $ref: '#/components/schemas/DatasetFunctionEnum'
         type:
