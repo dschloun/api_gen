@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: 1.3.2
+  version: 1.3.4
   title: 'FpGen api'
   description: 'API for fake profile dataset generator project'
 
@@ -840,6 +840,8 @@ components:
           type: string
         comment:
           type: string
+        name:
+          type: string
 
     Dataset:
       type: object
@@ -860,6 +862,14 @@ components:
           $ref: '#/components/schemas/DatasetFunctionEnum'
         type:
           $ref: '#/components/schemas/DatasetType'
+        name:
+          type: string
+        comment:
+          type: string
+        description:
+          type: string
+        version:
+          type: string
 
     # enums
     DatasetType:
