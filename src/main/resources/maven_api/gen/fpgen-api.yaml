@@ -835,8 +835,8 @@ components:
           $ref: 'common.yaml#/components/schemas/DateTime'
         modificationDate:
           $ref: 'common.yaml#/components/schemas/DateTime'
-        generation:
-          $ref: '#/components/schemas/Generation'
+        author:
+          $ref: '#/components/schemas/Author'
         function:
           $ref: '#/components/schemas/DatasetFunctionEnum'
         type:
