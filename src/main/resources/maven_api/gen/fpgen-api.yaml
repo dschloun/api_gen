@@ -399,6 +399,8 @@ paths:
       summary: "Create dataset"
       description: "Create dataset"
       operationId: createDataset
+      parameters:
+        - $ref: '#/components/parameters/datasetType'
       requestBody:
         required: true
         content:
@@ -430,6 +432,7 @@ paths:
       operationId: getDatasetById
       parameters:
         - $ref: '#/components/parameters/datasetId'
+        - $ref: '#/components/parameters/datasetType'
       responses:
         200:
           description: 'Dataset successfully recovered'
@@ -453,6 +456,7 @@ paths:
       operationId: addGenerationListToDataset
       parameters:
         - $ref: '#/components/parameters/datasetId'
+        - $ref: '#/components/parameters/datasetType'
       requestBody:
         required: true
         content:
@@ -480,6 +484,7 @@ paths:
       operationId: removeGenerationFromDataset
       parameters:
         - $ref: '#/components/parameters/datasetId'
+        - $ref: '#/components/parameters/datasetType'
       requestBody:
         required: true
         content:
@@ -507,6 +512,7 @@ paths:
       operationId: deleteDataset
       parameters:
         - $ref: '#/components/parameters/datasetId'
+        - $ref: '#/components/parameters/datasetType'
       responses:
         204:
           description: 'Dataset successfully deleted'
@@ -526,6 +532,8 @@ paths:
       summary: "Search datasets with pagination"
       description: "Search datasets with pagination"
       operationId: searchDatasetsPaginate
+      parameters:
+        - $ref: '#/components/parameters/datasetType'
       requestBody:
         content:
           application/json:
@@ -591,6 +599,13 @@ components:
       required: true
       schema:
         $ref: 'common.yaml#/components/schemas/UUID'
+
+    datasetType:
+      name: datasetType
+      in: query
+      required: true
+      schema:
+        $ref: '#/components/schemas/DatasetType'
 
     statisticId:
       name: statisticId
