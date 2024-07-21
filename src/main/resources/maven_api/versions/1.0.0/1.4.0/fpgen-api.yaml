@@ -304,6 +304,7 @@ paths:
       operationId: deleteGenerationById
       parameters:
         - $ref: '#/components/parameters/generationId'
+        - $ref: '#/components/parameters/generationType'
       responses:
         204:
           description: 'Generation successfully deleted'
