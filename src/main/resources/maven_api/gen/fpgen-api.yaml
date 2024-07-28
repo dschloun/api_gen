@@ -794,17 +794,17 @@ components:
     AuthorCreation:
       type: object
       required:
-        - lastName
-        - firstName
+        - lastname
+        - firstname
         - trigram
         - organization
         - authorFunction
         - email
         - phoneNumber
       properties:
-        lastName:
+        lastname:
           type: string
-        firstName:
+        firstname:
           type: string
         trigram:
           type: string
@@ -822,9 +822,9 @@ components:
       properties:
         id:
           $ref: 'common.yaml#/components/schemas/UUID'
-        lastName:
+        lastname:
           type: string
-        firstName:
+        firstname:
           type: string
         trigram:
           type: string
