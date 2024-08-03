@@ -784,6 +784,8 @@ paths:
       summary: "Search projects with pagination"
       description: "Search projects with pagination"
       operationId: searchProjectsPaginate
+      parameters:
+        - $ref: '#/components/parameters/projectType'
       requestBody:
         content:
           application/json:
@@ -878,6 +880,13 @@ components:
       schema:
         $ref: 'common.yaml#/components/schemas/UUID'
 
+    projectType:
+      name: projectType
+      in: query
+      required: true
+      schema:
+        $ref: '#/components/schemas/ProjectType'
+
   schemas:
     # bodies
     # request bodies
@@ -940,9 +949,13 @@ components:
           $ref: 'common.yaml#/components/schemas/DateTime'
         modificationDate:
           $ref: 'common.yaml#/components/schemas/DateTime'
+        type:
+          $ref: '#/components/schemas/ProjectType'
         name:
           type: string
         description:
+          type: string
+        organization:
           type: string
         author:
           $ref: '#/components/schemas/Author'
