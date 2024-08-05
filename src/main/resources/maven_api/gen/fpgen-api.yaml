@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: 1.5.1
+  version: 1.6.0
   title: 'FpGen api'
   description: 'API for fake profile dataset generator project'
 
@@ -904,7 +904,7 @@ components:
           type: string
         description:
           type: string
-        organisation:
+        organization:
           type: string
         authorId:
           $ref: 'common.yaml#/components/schemas/UUID'
@@ -1291,6 +1291,10 @@ components:
           type: integer
         authorTrigram:
           type: string
+        datasetIdList:
+          type: array
+          items:
+            $ref: 'common.yaml#/components/schemas/UUID'
         startDate:
           $ref: 'common.yaml#/components/schemas/Date'
         endDate:
