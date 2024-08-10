@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: 1.7.0
+  version: 1.6.0
   title: 'FpGen api'
   description: 'API for fake profile dataset generator project'
 
@@ -917,8 +917,6 @@ components:
         properties:
           authorId:
             $ref: 'common.yaml#/components/schemas/UUID'
-          datasetId:
-            $ref: 'common.yaml#/components/schemas/UUID'
           instantMessageCreationList:
             type: array
             items:
@@ -931,8 +929,6 @@ components:
         - conversationCreationList
       properties:
         authorId:
-          $ref: 'common.yaml#/components/schemas/UUID'
-        datasetId:
           $ref: 'common.yaml#/components/schemas/UUID'
         conversationCreationList:
           type: array
