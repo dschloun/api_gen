@@ -1502,6 +1502,8 @@ components:
           $ref: '#/components/schemas/Statistic'
         validated:
           type: boolean
+        isLastVersion:
+          type: boolean
 
     OngoingGeneration:
       type: object
