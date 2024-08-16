@@ -682,6 +682,38 @@ paths:
       responses:
         201:
           description: 'Dataset new version successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/datasets/{datasetId}/versions:
+    get:
+      tags:
+        - Dataset
+      summary: "Get all version of the dataset"
+      description: "Get all version of the dataset"
+      operationId: getDatasetAllVersions
+      parameters:
+        - $ref: '#/components/parameters/datasetId'
+        - $ref: '#/components/parameters/datasetType'
+      responses:
+        201:
+          description: 'Dataset new version successfully created'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dataset'
         400:
           $ref: 'common.yaml#/components/responses/400'
         403:
