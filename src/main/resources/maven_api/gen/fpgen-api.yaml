@@ -1440,9 +1440,9 @@ components:
     Dataset:
       type: object
       required:
-        - generation
         - datasetFunction
         - type
+        - validated
       properties:
         id:
           $ref: 'common.yaml#/components/schemas/UUID'
@@ -1468,6 +1468,8 @@ components:
           $ref: 'common.yaml#/components/schemas/UUID'
         statistic:
           $ref: '#/components/schemas/Statistic'
+        validated:
+          type: boolean
 
     OngoingGeneration:
       type: object
