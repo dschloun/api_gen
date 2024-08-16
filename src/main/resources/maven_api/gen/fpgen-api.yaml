@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: 1.8.0
+  version: 1.9.0
   title: 'FpGen api'
   description: 'API for fake profile dataset generator project'
 
@@ -691,6 +691,165 @@ paths:
         500:
           $ref: 'common.yaml#/components/responses/500'
 
+  /v1/datasets/{datasetId}/validate:
+    put:
+      tags:
+        - Dataset
+      summary: "Validate dataset"
+      description: "Validate dataset"
+      operationId: validateDataset
+      parameters:
+        - $ref: '#/components/parameters/datasetId'
+        - $ref: '#/components/parameters/datasetType'
+      responses:
+        204:
+          description: 'Dataset has been successfully validated'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/datasets/{datasetId}/results:
+    post:
+      tags:
+        - Dataset
+      summary: "Add result on dataset"
+      description: "Add result on dataset"
+      operationId: addResultOnDataset
+      parameters:
+        - $ref: '#/components/parameters/datasetId'
+        - $ref: '#/components/parameters/datasetType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResultCreation'
+      responses:
+        200:
+          description: 'Result successfully added to dataset'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+    get:
+      tags:
+        - Dataset
+      summary: "Get result list on dataset"
+      description: "Get result list on dataset"
+      operationId: getResultListDataset
+      parameters:
+        - $ref: '#/components/parameters/datasetId'
+        - $ref: '#/components/parameters/datasetType'
+      responses:
+        200:
+          description: 'Result list successfully recovered'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/datasets/{datasetId}/results/{resultId}:
+    put:
+      tags:
+        - Dataset
+      summary: "Update result"
+      description: "Update result"
+      operationId: updateResultOnDataset
+      parameters:
+        - $ref: '#/components/parameters/datasetId'
+        - $ref: '#/components/parameters/datasetType'
+        - $ref: '#/components/parameters/resultId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResultUpdate'
+      responses:
+        201:
+          description: 'Result successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+    get:
+      tags:
+        - Dataset
+      summary: "Get result"
+      description: "Get result"
+      operationId: getResultOnDataset
+      parameters:
+        - $ref: '#/components/parameters/datasetId'
+        - $ref: '#/components/parameters/datasetType'
+        - $ref: '#/components/parameters/resultId'
+      responses:
+        201:
+          description: 'Result successfully recovered'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+    delete:
+      tags:
+        - Dataset
+      summary: "Delete result"
+      description: "Delete result"
+      operationId: deleteResultOnDataset
+      parameters:
+        - $ref: '#/components/parameters/datasetId'
+        - $ref: '#/components/parameters/datasetType'
+        - $ref: '#/components/parameters/resultId'
+      responses:
+        204:
+          description: 'Result successfully deleted'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
   /v1/datasets/search:
     post:
       tags:
@@ -817,6 +976,31 @@ paths:
       responses:
         204:
           description: 'Project successfully deleted'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/projects/{projectId}/trainingTestDifferences:
+    get:
+      tags:
+        - Project
+      summary: "Get difference between training and test dataset for a given project by id"
+      description: "Get difference between training and test dataset for a given project by id"
+      operationId: getDatasetsTrainingTestDifferencesByProjectId
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+      responses:
+        200:
+          description: 'Differences successfully recovered'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingTestDifferences'
         400:
           $ref: 'common.yaml#/components/responses/400'
         403:
@@ -968,6 +1152,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/ProjectType'
+
+    resultId:
+      name: resultId
+      in: path
+      required: true
+      schema:
+        $ref: 'common.yaml#/components/schemas/UUID'
 
   schemas:
     # bodies
@@ -1381,6 +1572,207 @@ components:
         ratio:
           type: number
           format: double
+
+    TypeTopicDifference:
+      type: object
+      required:
+        - messageType
+        - messageTopic
+        - difference
+      properties:
+        messageType:
+          $ref: '#/components/schemas/MessageType'
+        messageTopic:
+          $ref: '#/components/schemas/MessageTopic'
+        difference:
+          type: integer
+
+    TrainingTestDifferences:
+      type: object
+      properties:
+        fakeDifference:
+          type: integer
+        realDifference:
+          type: integer
+        socialEngineeringDifference:
+          type: integer
+        trollingDifference:
+          type: integer
+        typeTopicDifferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/TypeTopicDifference'
+
+    ResultCreation:
+      type: object
+      required:
+        - projectId
+        - datasetId
+        - authorId
+      properties:
+        projectId:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        datasetId:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        authorId:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        experimentDate:
+          $ref: 'common.yaml#/components/schemas/DateTime'
+        machineDetails:
+          type: string
+        algorithmType:
+          type: string
+        algorithmSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlgorithmSetting'
+        otherSettingDetails:
+          type: string
+        accuracy:
+          type: number
+          format: double
+        precision:
+          type: number
+          format: double
+        recall:
+          type: number
+          format: double
+        f1Score:
+          type: number
+          format: double
+        prAuc:
+          type: number
+          format: double
+        fpRate:
+          type: number
+          format: double
+        fnRate:
+          type: number
+          format: double
+        tpRate:
+          type: number
+          format: double
+        tnRate:
+          type: number
+          format: double
+        appreciation:
+          type: string
+        comment:
+          type: string
+
+    ResultUpdate:
+      type: object
+      properties:
+        experimentDate:
+          $ref: 'common.yaml#/components/schemas/DateTime'
+        machineDetails:
+          type: string
+        algorithmType:
+          type: string
+        algorithmSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlgorithmSetting'
+        otherSettingDetails:
+          type: string
+        accuracy:
+          type: number
+          format: double
+        precision:
+          type: number
+          format: double
+        recall:
+          type: number
+          format: double
+        f1Score:
+          type: number
+          format: double
+        prAuc:
+          type: number
+          format: double
+        fpRate:
+          type: number
+          format: double
+        fnRate:
+          type: number
+          format: double
+        tpRate:
+          type: number
+          format: double
+        tnRate:
+          type: number
+          format: double
+        appreciation:
+          type: string
+        comment:
+          type: string
+
+    Result:
+      type: object
+      required:
+        - projectId
+        - datasetId
+        - authorId
+      properties:
+        id:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        projectId:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        datasetId:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        authorId:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        experimentDate:
+          $ref: 'common.yaml#/components/schemas/DateTime'
+        machineDetails:
+          type: string
+        algorithmType:
+          type: string
+        algorithmSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlgorithmSetting'
+        otherSettingDetails:
+          type: string
+        accuracy:
+          type: number
+          format: double
+        precision:
+          type: number
+          format: double
+        recall:
+          type: number
+          format: double
+        f1Score:
+          type: number
+          format: double
+        prAuc:
+          type: number
+          format: double
+        fpRate:
+          type: number
+          format: double
+        fnRate:
+          type: number
+          format: double
+        tpRate:
+          type: number
+          format: double
+        tnRate:
+          type: number
+          format: double
+        appreciation:
+          type: string
+        comment:
+          type: string
+
+    AlgorithmSetting:
+      type: object
+      properties:
+        parameterName:
+          type: string
+        value:
+          type: string
 
     # enums
     DatasetType:
