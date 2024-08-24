@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: 2.1.0
+  version: 2.1.1
   title: 'FpGen api'
   description: 'API for fake profile dataset generator project'
 
@@ -1640,7 +1640,7 @@ components:
         authorId:
           $ref: 'common.yaml#/components/schemas/UUID'
         experimentDate:
-          $ref: 'common.yaml#/components/schemas/DateTime'
+          $ref: 'common.yaml#/components/schemas/Date'
         machineDetails:
           type: string
         algorithmType:
@@ -1687,7 +1687,7 @@ components:
       type: object
       properties:
         experimentDate:
-          $ref: 'common.yaml#/components/schemas/DateTime'
+          $ref: 'common.yaml#/components/schemas/Date'
         machineDetails:
           type: string
         algorithmType:
@@ -1747,7 +1747,7 @@ components:
         authorTrigram:
           type: string
         experimentDate:
-          $ref: 'common.yaml#/components/schemas/DateTime'
+          $ref: 'common.yaml#/components/schemas/Date'
         machineDetails:
           type: string
         algorithmType:
