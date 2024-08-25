@@ -1326,6 +1326,8 @@ components:
           $ref: '#/components/schemas/Interlocutor'
         receiver:
           $ref: '#/components/schemas/Interlocutor'
+        orderMessageNumber:
+          type: integer
 
     Conversation:
       type: object
