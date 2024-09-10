@@ -763,6 +763,33 @@ paths:
         500:
           $ref: 'common.yaml#/components/responses/500'
 
+  /v1/datasets/{datasetId}/bias:
+    get:
+      tags:
+        - Dataset
+      summary: "Check dataset bias"
+      description: "Check dataset bias"
+      operationId: checkDatasetBias
+      parameters:
+        - $ref: '#/components/parameters/datasetId'
+      responses:
+        200:
+          description: 'Dataset bias successfully recovered'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RealFakeTopicBias'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
   /v1/datasets/search:
     post:
       tags:
@@ -1658,6 +1685,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TypeTopicDifference'
+
+    RealFakeTopicBias:
+      type: object
+      required:
+        - messageTopic
+        - bias
+      properties:
+        messageTopic:
+          $ref: '#/components/schemas/MessageTopic'
+        realNumber:
+          type: integer
+        fakeNumber:
+          type: integer
+        bias:
+          type: integer
 
     ResultCreation:
       type: object

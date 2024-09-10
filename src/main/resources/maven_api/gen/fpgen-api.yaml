@@ -1695,14 +1695,11 @@ components:
         messageTopic:
           $ref: '#/components/schemas/MessageTopic'
         realNumber:
-          type: number
-          format: integer
+          type: integer
         fakeNumber:
-          type: number
-          format: integer
+          type: integer
         bias:
-          type: number
-          format: integer
+          type: integer
 
     ResultCreation:
       type: object
