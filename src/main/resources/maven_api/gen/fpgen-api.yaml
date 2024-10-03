@@ -16,8 +16,56 @@ tags:
   - name: Project
   - name: Result
   - name: Administration
+  - name: Legal
 
 paths:
+
+#Legal
+  /v1/gdpr:
+    get:
+      tags:
+        - Legal
+      summary: "Get GDPR information"
+      description: "Get GDPR information"
+      operationId: getGdpr
+      responses:
+        200:
+          description: 'GDPR information successfully recovered'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Text'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/termsOfUse:
+    get:
+      tags:
+        - Legal
+      summary: "Get Terms of use"
+      description: "Get GDPR information"
+      operationId: getTermsOfUse
+      responses:
+        200:
+          description: 'Terms of use successfully recovered'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Text'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
 
 #InstantMessage
   /v1/instantMessages:
@@ -1480,6 +1528,12 @@ components:
             type: integer
 
     # response bodies
+    Text:
+      type: object
+      properties:
+        text:
+          type: string
+
     Project:
       type: object
       properties:
@@ -1613,6 +1667,10 @@ components:
           type: string
         phoneNumber:
           type: string
+        motivation:
+          type: string
+        acceptTermsOfUse:
+          type: boolean
 
     Author:
       type: object
@@ -2142,6 +2200,7 @@ components:
         - WAITING_VERIFICATION
         - VERIFIED
         - BANISHED
+        - SUSPENDED
 
     ###############################################################################################################
     #For the pagination
