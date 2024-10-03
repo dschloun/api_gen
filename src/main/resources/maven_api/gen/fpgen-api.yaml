@@ -1707,9 +1707,7 @@ components:
           $ref: '#/components/schemas/MessageType'
         quantity:
           type: integer
-        systemPromptVersion:
-          type: integer
-        userPromptVersion:
+        promptVersion:
           type: integer
 
     Generation:
@@ -1731,9 +1729,7 @@ components:
           $ref: '#/components/schemas/MessageType'
         messageTopic:
           $ref: '#/components/schemas/MessageTopic'
-        userPromptVersion:
-          type: integer
-        systemPromptVersion:
+        promptVersion:
           type: integer
         author:
           type: string
@@ -2230,9 +2226,7 @@ components:
           $ref: '#/components/schemas/MessageType'
         messageTopic:
           $ref: '#/components/schemas/MessageTopic'
-        userPromptVersion:
-          type: integer
-        systemPromptVersion:
+        promptVersion:
           type: integer
         quantity:
           type: integer
