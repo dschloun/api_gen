@@ -17,6 +17,7 @@ tags:
   - name: Result
   - name: Administration
   - name: Legal
+  - name: Notification
 
 paths:
 
@@ -1261,15 +1262,16 @@ paths:
         500:
           $ref: 'common.yaml#/components/responses/500'
 
-  /v1/prompts/{promptId}/validate:
+  /v1/prompts/{promptId}/updateStatus:
     put:
       tags:
         - Administration
-      summary: "Validate prompt by id"
-      description: "Validate prompt by id"
-      operationId: validatePrompt
+      summary: "Update prompt status"
+      description: "Update prompt status"
+      operationId: updatePromptStatus
       parameters:
         - $ref: '#/components/parameters/promptId'
+        - $ref: '#/components/parameters/promptStatus'
       responses:
         204:
           description: 'Prompt successfully validated'
@@ -1354,6 +1356,97 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Prompt'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/authors/{authorId}/notifications:
+    get:
+      tags:
+        - Notification
+      summary: "Get notifications by author id"
+      description: "Get notifications by author id"
+      operationId: getNotificationsByAuthor'
+      parameters:
+        - $ref: '#/components/parameters/authorId'
+      responses:
+        200:
+          description: 'Notifications successfully recovered'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
+  /v1/notifications/{notificationId}:
+    get:
+      tags:
+        - Notification
+      summary: "Get notifications by id"
+      description: "Get notifications by id"
+      operationId: getNotificationById'
+      parameters:
+        - $ref: '#/components/parameters/notificationId'
+      responses:
+        200:
+          description: 'Notification successfully recovered'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+    put:
+      tags:
+        - Notification
+      summary: "Update notifications status"
+      description: "Update notifications status"
+      operationId: updateNotificationStatus'
+      parameters:
+        - $ref: '#/components/parameters/notificationId'
+        - $ref: '#/components/parameters/notificationStatus'
+      responses:
+        204:
+          description: 'Notification successfully updated'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+    delete:
+      tags:
+        - Notification
+      summary: "Delete notifications status"
+      description: "Delete notifications status"
+      operationId: deleteNotificationStatus'
+      parameters:
+        - $ref: '#/components/parameters/notificationId'
+      responses:
+        204:
+          description: 'Notification successfully deleted'
         400:
           $ref: 'common.yaml#/components/responses/400'
         403:
@@ -1470,6 +1563,27 @@ components:
       required: true
       schema:
         $ref: 'common.yaml#/components/schemas/UUID'
+
+    promptStatus:
+      name: promptStatus
+      in: query
+      required: true
+      schema:
+        $ref: '#/components/schemas/PromptStatusEnum'
+
+    notificationId:
+      name: notificationId
+      in: path
+      required: true
+      schema:
+        $ref: 'common.yaml#/components/schemas/UUID'
+
+    notificationStatus:
+      name: notificationStatus
+      in: query
+      required: true
+      schema:
+        $ref: '#/components/schemas/NotificationStatusEnum'
 
   schemas:
     # bodies
@@ -2116,6 +2230,18 @@ components:
         value:
           type: string
 
+    Notification:
+      type: object
+      properties:
+        id:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        creationDate:
+          $ref: 'common.yaml#/components/schemas/DateTime'
+        status:
+          $ref: '#/components/schemas/NotificationStatusEnum'
+        message:
+          type: string
+
     # enums
     DatasetType:
       type: string
@@ -2197,6 +2323,12 @@ components:
         - VERIFIED
         - BANISHED
         - SUSPENDED
+
+    NotificationStatusEnum:
+      type: string
+      enum:
+        - UNREAD
+        - READ
 
     ###############################################################################################################
     #For the pagination
