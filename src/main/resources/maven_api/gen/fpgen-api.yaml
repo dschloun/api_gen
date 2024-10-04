@@ -1306,19 +1306,40 @@ paths:
           $ref: 'common.yaml#/components/responses/500'
 
   /v1/prompts:
-    get:
+    post:
       tags:
         - Administration
-      summary: "Get prompt by categories"
-      description: "Get prompt by categories"
-      operationId: getPromptsByCategories
+      summary: "Create prompt"
+      description: "Create prompt"
+      operationId: createPrompt
       requestBody:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/MessageType'
+              $ref: '#/components/schemas/PromptCreation'
+      responses:
+        201:
+          description: 'Prompts successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prompt'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+    get:
+      tags:
+        - Administration
+      summary: "Get prompt by status"
+      description: "Get prompt by status"
+      operationId: getPromptsByStatus
+      parameters:
+        - $ref: '#/components/parameters/promptStatus'
       responses:
         200:
           description: 'Prompts successfully recovered'
@@ -1336,20 +1357,19 @@ paths:
           $ref: 'common.yaml#/components/responses/404'
         500:
           $ref: 'common.yaml#/components/responses/500'
-    post:
+
+  /v1/prompts/user:
+    get:
       tags:
         - Administration
-      summary: "Create prompt"
-      description: "Create prompt"
-      operationId: createPrompt
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PromptCreation'
+      summary: "Get prompt by category"
+      description: "Get prompt by category"
+      operationId: getPromptsByCategory
+      parameters:
+        - $ref: '#/components/parameters/promptCategory'
       responses:
-        201:
-          description: 'Prompts successfully created'
+        200:
+          description: 'Prompts successfully recovered'
           content:
             application/json:
               schema:
@@ -1570,6 +1590,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/PromptStatusEnum'
+
+    promptCategory:
+      name: promptCategory
+      in: query
+      required: true
+      schema:
+        $ref: '#/components/schemas/MessageType'
 
     notificationId:
       name: notificationId
@@ -1807,6 +1834,10 @@ components:
           type: string
         status:
           $ref: '#/components/schemas/AuthorStatusEnum'
+        acceptTermsOfUse:
+          type: boolean
+        motivation:
+          type: string
 
     GenerationCreation:
       type: object
