@@ -562,12 +562,7 @@ paths:
       operationId: updateAuthorStatus
       parameters:
         - $ref: '#/components/parameters/authorId'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AuthorStatusEnum'
+        - $ref: '#/components/parameters/authorStatus'
       responses:
         200:
           description: 'Author status successfully updated'
@@ -1527,6 +1522,13 @@ components:
       required: true
       schema:
         $ref: 'common.yaml#/components/schemas/UUID'
+
+    authorStatus:
+      name: authorStatus
+      in: query
+      required: true
+      schema:
+        $ref: '#/components/schemas/AuthorStatusEnum'
     
     authorQueryId:
       name: authorId
@@ -2266,10 +2268,32 @@ components:
       properties:
         id:
           $ref: 'common.yaml#/components/schemas/UUID'
+        sender:
+          $ref: '#/components/schemas/SenderContact'
         creationDate:
           $ref: 'common.yaml#/components/schemas/DateTime'
         status:
           $ref: '#/components/schemas/NotificationStatusEnum'
+        message:
+          type: string
+
+    SenderContact:
+      type: object
+      properties:
+        id:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        email:
+          type: string
+        phoneNumber:
+          type: string
+
+    NotificationCreation:
+      type: object
+      properties:
+        authorSenderId:
+          $ref: 'common.yaml#/components/schemas/UUID'
+        authorReceiverId:
+          $ref: 'common.yaml#/components/schemas/UUID'
         message:
           type: string
 
