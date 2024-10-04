@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: 2.3.0
+  version: 2.4.0
   title: 'FpGen api'
   description: 'API for fake profile dataset generator project'
 
@@ -1357,11 +1357,12 @@ paths:
     get:
       tags:
         - Administration
-      summary: "Get prompt by category"
-      description: "Get prompt by category"
-      operationId: getPromptsByCategory
+      summary: "Get prompt by dataset type and message type"
+      description: "Get prompt by dataset type and message type"
+      operationId: getPromptsByDatasetTypeAndMessageType
       parameters:
-        - $ref: '#/components/parameters/promptCategory'
+        - $ref: '#/components/parameters/datasetType'
+        - $ref: '#/components/parameters/messageType'
       responses:
         200:
           description: 'Prompts successfully recovered'
@@ -1593,8 +1594,8 @@ components:
       schema:
         $ref: '#/components/schemas/PromptStatusEnum'
 
-    promptCategory:
-      name: promptCategory
+    messageType:
+      name: messageType
       in: query
       required: true
       schema:
@@ -2465,7 +2466,9 @@ components:
             $ref: 'common.yaml#/components/schemas/UUID'
           creationDate:
             $ref: 'common.yaml#/components/schemas/DateTime'
-          category:
+          datasetType:
+            $ref: '#/components/schemas/DatasetType'
+          messageType:
             $ref: '#/components/schemas/MessageType'
           version:
             type: integer
@@ -2483,8 +2486,10 @@ components:
       properties:
         authorId:
           $ref: 'common.yaml#/components/schemas/UUID'
-        category:
-          $ref: '#/components/schemas/MessageType'
+        datasetType:
+            $ref: '#/components/schemas/DatasetType'
+        messageType:
+            $ref: '#/components/schemas/MessageType'
         userContent:
           type: string
         systemContent:
