@@ -1396,13 +1396,11 @@ paths:
               $ref: '#/components/schemas/NotificationCreation'
       responses:
         200:
-          description: 'Notifications successfully recovered'
+          description: 'Notifications successfully created'
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Notification'
+                $ref: '#/components/schemas/Notification'
         400:
           $ref: 'common.yaml#/components/responses/400'
         403:
