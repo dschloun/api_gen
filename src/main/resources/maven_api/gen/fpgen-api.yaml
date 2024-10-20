@@ -1381,6 +1381,37 @@ paths:
         500:
           $ref: 'common.yaml#/components/responses/500'
 
+  /v1/notifications:
+    post:
+      tags:
+        - Notification
+      summary: "Create a notification"
+      description: "Create a notification"
+      operationId: createNotification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationCreation'
+      responses:
+        200:
+          description: 'Notifications successfully recovered'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
   /v1/authors/{authorId}/notifications:
     get:
       tags:
