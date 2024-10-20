@@ -1409,16 +1409,12 @@ paths:
           $ref: 'common.yaml#/components/responses/404'
         500:
           $ref: 'common.yaml#/components/responses/500'
-
-  /v1/authors/{authorId}/notifications:
     get:
       tags:
         - Notification
-      summary: "Get notifications by author id"
-      description: "Get notifications by author id"
-      operationId: getNotificationsByAuthor'
-      parameters:
-        - $ref: '#/components/parameters/authorId'
+      summary: "Get notifications"
+      description: "Get notifications"
+      operationId: getNotifications'
       responses:
         200:
           description: 'Notifications successfully recovered'
@@ -1437,15 +1433,13 @@ paths:
         500:
           $ref: 'common.yaml#/components/responses/500'
 
-  /v1/authors/{authorId}/unreadNotifications:
+  /v1/notifications/unread:
     get:
       tags:
         - Notification
       summary: "Does exist unread notifications by author id"
       description: "Does exist notifications by author id"
-      operationId: existsUnreadNotificationsByAuthor'
-      parameters:
-        - $ref: '#/components/parameters/authorId'
+      operationId: existsUnreadNotifications'
       responses:
         200:
           description: 'Notifications successfully recovered'
@@ -2356,6 +2350,8 @@ components:
       properties:
         id:
           $ref: 'common.yaml#/components/schemas/UUID'
+        senderName:
+          type: string
         sender:
           $ref: '#/components/schemas/SenderContact'
         creationDate:
