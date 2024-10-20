@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: 3.0.1
+  version: 3.1.0
   title: 'FpGen api'
   description: 'API for fake profile dataset generator project'
 
@@ -1408,6 +1408,31 @@ paths:
         500:
           $ref: 'common.yaml#/components/responses/500'
 
+  /v1/authors/{authorId}/unreadNotifications:
+    get:
+      tags:
+        - Notification
+      summary: "Does exist unread notifications by author id"
+      description: "Does exist notifications by author id"
+      operationId: existsUnreadNotificationsByAuthor'
+      parameters:
+        - $ref: '#/components/parameters/authorId'
+      responses:
+        200:
+          description: 'Notifications successfully recovered'
+          content:
+            application/json:
+              schema:
+                type: boolean
+        400:
+          $ref: 'common.yaml#/components/responses/400'
+        403:
+          $ref: 'common.yaml#/components/responses/403'
+        404:
+          $ref: 'common.yaml#/components/responses/404'
+        500:
+          $ref: 'common.yaml#/components/responses/500'
+
   /v1/notifications/{notificationId}:
     get:
       tags:
@@ -1935,6 +1960,8 @@ components:
           type: boolean
         hasResult:
           type: boolean
+        recordNumber:
+          type: integer
 
     OngoingGeneration:
       type: object
