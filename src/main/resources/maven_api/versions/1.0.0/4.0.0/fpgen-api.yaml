@@ -1887,6 +1887,7 @@ components:
         - topic
         - type
         - quantity
+        - promptId
       properties:
         topic:
           $ref: '#/components/schemas/MessageTopic'
