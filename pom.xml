@@ -110,4 +110,11 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>your_id</id>
+            <url>your_repo</url>
+        </repository>
+    </distributionManagement>
+
 </project>
